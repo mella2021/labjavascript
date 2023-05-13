@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>My super nifty to-do list</title>
+    <style>
+      li:nth-child(even) {
+        background-color: yellow;
+      }
+      li:nth-child(odd) {
+        background-color: white;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>My super nifty to-do list</h1>
+    <ul id="list"></ul>
+    <div>
+      <input type="text" id="item" />
+      <button id="add">add</button>
+      <button id="remove">remove</button>
+    </div>
+    <script>
+      const list = document.getElementById("list");
+      let backgroundColorIndex = 0;
+
+      document.getElementById("add").addEventListener("click", function () {
+        const input = document.getElementById("item").value;
+        const words = input.split(" ");
+
+        for (let i = 0; i < words.length; i++) {
+          if (words[i] !== "") {
+            const li = document.createElement("li");
+            li.innerText = words[i];
+            li.style.backgroundColor = backgroundColorIndex % 2 === 0 ? "white" : "yellow";
+            list.appendChild(li);
+            backgroundColorIndex++;
+          }
+        }
+
+        document.getElementById("item").value = "";
+      });
+
+      document.getElementById("remove").addEventListener("click", function () {
+        const input = document.getElementById("item").value.toLowerCase();
+
+        const listItems = document.getElementsByTagName("li");
+        for (let i = 0; i < listItems.length; i++) {
+          const listItem = listItems[i];
+          if (listItem.innerText.toLowerCase() === input) {
+            listItem.remove();
+            break;
+          }
+        }
+
+        document.getElementById("item").value = "";
+      });
+    </script>
+  </body>
+</html>
